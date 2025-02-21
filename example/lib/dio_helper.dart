@@ -30,17 +30,21 @@ class DioHelper {
 
   // set proxy
   static IOHttpClientAdapter _getHttpClientAdapter() {
-    IOHttpClientAdapter httpClientAdapter;
-    httpClientAdapter = IOHttpClientAdapter();
-    httpClientAdapter.onHttpClientCreate = (HttpClient client) {
-      client.findProxy = (uri) {
-        return 'PROXY 10.0.0.103:6152';
-      };
-      client.badCertificateCallback =
-          (X509Certificate cert, String host, int port) {
-        return true;
-      };
-    };
+    final httpClientAdapter = IOHttpClientAdapter(
+      onHttpClientCreate: (client) {
+        client.findProxy = (uri) {
+          return 'PROXY 10.0.0.103:6152';
+        };
+
+        client.badCertificateCallback =
+            (X509Certificate cert, String host, int port) {
+          return true;
+        };
+
+        return client;
+      },
+    );
+
     return httpClientAdapter;
   }
 }
