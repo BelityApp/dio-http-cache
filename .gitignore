@@ -16,3 +16,10 @@ doc/api/
 *.iml
 pubspec.lock
 .DS_Store
+
+.flutter-plugins
+.flutter-plugins-dependencies
+example/.flutter-plugins
+example/.flutter-plugins-dependencies
+.ios
+.android
