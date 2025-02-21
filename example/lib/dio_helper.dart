@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 
 class DioHelper {
@@ -14,7 +14,6 @@ class DioHelper {
       _dio = Dio(BaseOptions(
           baseUrl: baseUrl,
           contentType: "application/x-www-form-urlencoded; charset=utf-8"))
-//        ..httpClientAdapter = _getHttpClientAdapter()
         ..interceptors.add(getCacheManager().interceptor)
         ..interceptors.add(LogInterceptor(responseBody: true));
     }
@@ -30,9 +29,9 @@ class DioHelper {
   }
 
   // set proxy
-  static DefaultHttpClientAdapter _getHttpClientAdapter() {
-    DefaultHttpClientAdapter httpClientAdapter;
-    httpClientAdapter = DefaultHttpClientAdapter();
+  static IOHttpClientAdapter _getHttpClientAdapter() {
+    IOHttpClientAdapter httpClientAdapter;
+    httpClientAdapter = IOHttpClientAdapter();
     httpClientAdapter.onHttpClientCreate = (HttpClient client) {
       client.findProxy = (uri) {
         return 'PROXY 10.0.0.103:6152';
